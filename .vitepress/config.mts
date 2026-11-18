@@ -1,6 +1,7 @@
 import { defineConfig } from 'vitepress'
 
 export default defineConfig({
+  base: '/',
   title: "WebSocket.Otp",
   description: "A minimal WebSocket library for ASP.NET Core inspired by REPR principles.",
   themeConfig: {
