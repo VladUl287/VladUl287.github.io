@@ -19,11 +19,11 @@ app.MapEndpoints(
     {
         opt.OnConnected = async (context) =>
         {
-            await context.Groups.AddAsync("general-chat", context.Connection.Id);
+            await context.Manager.AddToGroup("general-chat", context.Connection.Id, default);
         };
         opt.OnDisconnected = async (context) =>
         {
-            await context.Groups.RemoveAsync("general-chat", context.Connection.Id);
+            await context.Manager.RemoveFromGroup("general-chat", context.Connection.Id, default);
         };
     });
 ```
