@@ -22,7 +22,6 @@ const client = useWsClient({
 ```ts
 export type WsClientOptions = {
     readonly url: string | (() => string),
-    readonly defaultSerializer?: MessageSerializer,
     readonly serializer?: MessageSerializer,
     readonly socketFactory?: typeof defaultFactory,
     readonly scheduleFactory?: ReturnType<typeof buildSchedule>,
@@ -34,14 +33,11 @@ export type WsClientOptions = {
 | Option | Default | Purpose |
 | ----------- | ----------- | ----------- |
 | ```url``` | - (required) | Socket URL, or a function returning it (re-evaluated on each connect) |
-| defaultSerializer | jsonSerializer() | Serializer used for the handshake
-| serializer | defaultSerializer |	Serializer used for all other messages
+| serializer | jsonSerializer |	Serializer used for all other messages
 | socketFactory | global WebSocket | Factory for creating the underlying socket
 | scheduleFactory |	- |	Reconnection schedule (see Reconnection)
 | pendingFactory | usePendingRegistry | Registry for in-flight requests keyed by correlation ID
 | handshakeTimeoutMs | 15000 | Max time to wait for the handshake response
-
-```defaultSerializer``` and ```serializer``` are split so the handshake can always use a well-known format (JSON) even when the payload serializer is binary (e.g. MessagePack). Only set ```defaultSerializer``` if your server negotiates over something other than JSON.
 
 ## API
 
