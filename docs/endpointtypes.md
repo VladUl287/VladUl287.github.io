@@ -49,3 +49,28 @@ public class AddEndpoint : WsEndpoint<AddRequest, AddResponse>
     }
 }
 ```
+
+## Request/Result Response Endpoint
+
+```cs
+[WsEndpoint("calculator/add")]
+public class AddEndpoint : WsEndpoint<AddRequest, Result<AddResponse, AddError>>
+{
+    public override async Task<Result<AddResponse, AddError>> HandleAsync(AddRequest request, IEndpointContext context)
+    {
+        if(request.A < 0) 
+        {
+            return new AddError 
+            {
+                Message = "Below zero parameter"
+            };
+        }
+
+        return new AddResponse
+        {
+            Result = request.A + request.B,
+            Operation = "addition"
+        };
+    }
+}
+```
